@@ -1,4 +1,4 @@
-# app.py (ARQUIVO PRINCIPAL NA RAIZ DO PROJETO)
+# app.py (Na RAIZ do projeto)
 
 from flask import Flask, request, jsonify, Blueprint
 from flask_sqlalchemy import SQLAlchemy
@@ -21,7 +21,6 @@ auth_bp = Blueprint('auth', __name__)
 api_bp = Blueprint('api', __name__)
 
 # --- 1. MODELOS DE DADOS (SQLite/SQLAlchemy) ---
-# A lógica de modelos foi movida para o arquivo principal para evitar erros de importação.
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'
@@ -94,7 +93,8 @@ def login():
     user = Usuario.query.filter_by(Login=data['Login']).first()
 
     if user and user.check_password(data['Senha']):
-        access_token = create_access_token(identity=user.IDUsuario)
+        # CORREÇÃO: Converte o IDUsuario (que é um INT) para STR antes de criar o token.
+        access_token = create_access_token(identity=str(user.IDUsuario)) 
         return jsonify(access_token=access_token), 200
     
     return jsonify({"msg": "Credenciais inválidas"}), 401
@@ -105,7 +105,8 @@ def login():
 @api_bp.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
-    current_user_id = get_jwt_identity()
+    # Agora get_jwt_identity() retorna a string do ID do usuário.
+    current_user_id = get_jwt_identity() 
     return jsonify(logged_in_as=current_user_id), 200
 
 def fetch_pokemon_data(pokemon_id):
@@ -133,7 +134,8 @@ def fetch_pokemon_data(pokemon_id):
 def list_pokemon():
     # Implemente aqui a lógica para listar Pokémon da PokéAPI, 
     # combinando com o status de Favorito/Grupo de Batalha do usuário (Requisitos 2, 3 e 4)
-    user_id = get_jwt_identity()
+    # Note que get_jwt_identity() retorna uma string, precisamos converter para int para o DB.
+    user_id = int(get_jwt_identity())
     
     # Exemplo: Simular a busca dos 10 primeiros Pokémon
     pokemon_list = []
@@ -182,6 +184,5 @@ def create_app():
 
 if __name__ == '__main__':
     # EXECUÇÃO DIRETA DE PYTHON (A MAIS SEGURA PARA SEU AMBIENTE)
-    # Garante que o servidor suba sem problemas de ambiente
     app = create_app()
     app.run(debug=True)
