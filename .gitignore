@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ambiente Virtual
+venv/
+env/
+
+# Banco de Dados
+*.sqlite
+*.db
+*.sqlite3
+
+# Flask/SQLAlchemy
+instance/
+
+# Variáveis de Ambiente (Chave Secreta)
+.env
+
+# Logs
+*.log
