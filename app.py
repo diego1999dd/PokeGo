@@ -9,7 +9,7 @@ import requests
 import json
 import time
 
-
+# Carrega as variáveis de ambiente
 load_dotenv()
 
 
