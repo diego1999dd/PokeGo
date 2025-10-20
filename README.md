@@ -86,4 +86,6 @@ A API estará acessível em: `http://localhost:8000/api/v1/`
 
 ### Integração Front-End
 
+Se quiser testar a API já em um Front-End pronto, é só clonar o meu respositório em Angular: https://github.com/diego1999dd/PokeGo-Front
+
 O Front-End Angular deve ser configurado para usar a URL base `http://localhost:8000/api/v1` para todas as requisições. A configuração de CORS no Backend já permite requisições da origem padrão do Angular (`http://localhost:4200`).
