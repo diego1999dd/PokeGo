@@ -273,7 +273,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/api/v1/auth')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
-    # Note: db.create_all() deve ser chamado com o contexto da app
+    # Note: db.create_all() deve ser chamado com o contexto da app.
     with app.app_context():
         db.create_all()
 
