@@ -17,7 +17,7 @@ jwt = JWTManager()
 auth_bp = Blueprint('auth', __name__)
 api_bp = Blueprint('api', __name__)
 
-# --- 1. MODELOS DE DADOS (SQLite/SQLAlchemy) ---
+# --- 1. MODELOS DE DADOS (SQLite/SQLAlchemy) --
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'
