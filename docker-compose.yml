@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  pokemon-api:
+    # Constrói a imagem usando o Dockerfile no diretório atual
+    build: .
+    container_name: pokego_api
+    # Mapeia a porta 5000 do container para a porta 5000 do host
+    ports:
+      - "8000:8000"
+    # Monta o diretório atual para que as alterações de código sejam refletidas
+    # Isso é útil para desenvolvimento, mas o arquivo database.db será gerado fora do container.
+    volumes:
+      - .:/app
+    environment:
+      # Use as variáveis do seu arquivo .env
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    restart: always

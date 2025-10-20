@@ -265,7 +265,7 @@ def create_app():
     
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "sua_chave_secreta_default") 
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "sua_chave_secreta_default")
     
     db.init_app(app)
     jwt.init_app(app)
@@ -273,11 +273,8 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/api/v1/auth')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
+    # Note: db.create_all() deve ser chamado com o contexto da app
     with app.app_context():
         db.create_all()
 
     return app
-
-if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=True)
